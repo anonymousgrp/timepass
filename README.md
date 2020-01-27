@@ -1,3 +1,3 @@
 # Timepass
 
-![Home](https://raw.githubusercontent.com/anonymousgrp/polly_django/master/raw/TimePass.gif)
+![Home](https://github.com/anonymousgrp/timepass/raw/master/raw/TimePass.gif)
