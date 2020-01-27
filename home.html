@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TimePass-Home</title>
+</head>
+<body>
+    <h1 align='center' id='name'></h1>
+    <h3 align='center' id='age'>Age - </h3>
+
+    <script>
+        // let params = (new URL(document.location)).searchParams
+        document.getElementById('name').innerText = localStorage.getItem('name')
+        document.getElementById('age').innerText = 'Age -' + sessionStorage.getItem('age')
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+
+$colorPrimary: #05c9f9;
+$colorSecondary: #d12aff;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(269deg, $colorPrimary, $colorSecondary);
+    background-size: 200% 200%;
+    height: 100vh;
+    width: 100%;
+    user-select: none;
+    font-size: 62.5%;
+    position: relative;
+    font-family: sans-serif;
+    animation: backgroundAnim 3s ease infinite alternate-reverse, scaleAnim .3s cubic-bezier(0,.38,0,.6);   
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    color: #2c2c2c;
+    letter-spacing: .1rem;
+    font-family: inherit;
+}
+
+.main__container {
+    width: 70%;
+    height: 40%;
+    background-color: white;
+    box-shadow: 0 0 1rem .2rem rgba($color: #000000, $alpha: .3);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: .3s;
+    animation: shadowAnim 3s ease infinite alternate-reverse;
+}
+
+.input__container {
+    margin-top: 1rem;
+    transition: .3s;
+    background-color: #8881f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+    padding: 0 1rem;
+}
+
+.input {
+    width: 60%;
+    background-color: transparent;
+    height: 3rem;
+    outline: none;
+    border: none;
+    padding: .5rem 1rem;
+    color: white;
+    font-size: 1rem;
+    transition: .3s;
+    flex: 1;
+}
+
+.fas {
+    color: white;
+    font-size: 1rem;
+}
+
+.input::placeholder {
+    color: #bfbbf7;
+}
+
+.hover {
+    transform: scale(1.05);
+}
+
+.label {
+    font-size: .8rem;
+    margin-top: .5rem;
+}
+
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 1rem;
+    background-color: $colorPrimary;
+    opacity: .5;
+    padding: 1rem 1.5rem;
+    color: white;
+    font-size: 1.2rem;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    letter-spacing: .2rem;
+    border-radius: 2rem;
+}
+
+.invalid {
+    background-color: orangered;
+}
+
+.currect {
+    background-color: $colorPrimary;
+}
+
+@keyframes backgroundAnim {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+@keyframes shadowAnim {
+    0% {
+        box-shadow: 0 0 1rem .2rem rgba($color: #000000, $alpha: .3);
+    }
+    100% {
+        box-shadow: 0 0 0rem 0rem rgba($color: #000000, $alpha: .3);
+    }
+}
+
+@keyframes scaleAnim {
+    0% {
+        transform: scale(.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
