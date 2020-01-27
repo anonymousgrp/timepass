@@ -22,10 +22,7 @@ const isValidateEmail = email => {
  * @returns {HTMLInputElement}
  */
 const getInputElement = type => {
-    const inputElement = document.createElement('input')
-    inputElement.type = type
-    inputElement.placeholder = 'Email'
-    inputElement.className = 'input'
+    const inputElement = $('<input type='+type+' placeholder="Email" class="input"/>')
     return inputElement
 }
 
@@ -35,9 +32,9 @@ const getInputElement = type => {
  * @returns {Element}
  */
 const getActionBtn = text => {
-    const btn = document.createElement('a')
-    btn.className = 'btn'
-    btn.appendChild(document.createTextNode(text))
+    const btn = $('<a>')
+    btn.addClass('btn')
+    btn.text(text)
     return btn
 }
 
@@ -47,9 +44,9 @@ const getActionBtn = text => {
  * @returns {Element}
  */
 const getStatusLabel = (text = '') => {
-    const label = document.createElement('p')
-    label.className = 'label'
-    label.appendChild(document.createTextNode(text))
+    const label = $('<p>')
+    label.addClass('label')
+    label.text(text)
     return label
 }
 
@@ -59,8 +56,8 @@ const getStatusLabel = (text = '') => {
  * @returns {Element}
  */
 const getEmailIcon = () => {
-    const element = document.createElement('i')
-    element.classList.add('fas', 'fa-at')
+    const element = $('<i>')
+    element.addClass('fas fa-at')
     return element
 }
 
@@ -77,18 +74,18 @@ const status = {
 const inputElement = getInputElement('email')
 const actionBtn = getActionBtn('Submit')
 const label = getStatusLabel('')
-const mainContainer = document.querySelector('.main__container')
-const inputContainer = document.createElement('div')
-inputContainer.className = 'input__container'
+const mainContainer = $('.main__container')
+const inputContainer = $('<div>')
+inputContainer.addClass('input__container')
 
 // Appending all children to the container
-inputContainer.appendChild(getEmailIcon())
-inputContainer.appendChild(inputElement)
-mainContainer.appendChild(inputContainer)
-mainContainer.appendChild(label)
-mainContainer.appendChild(document.createElement('br'))
-mainContainer.appendChild(document.createElement('br'))
-mainContainer.appendChild(actionBtn)
+inputContainer.append(getEmailIcon())
+inputContainer.append(inputElement)
+mainContainer.append(inputContainer)
+mainContainer.append(label)
+mainContainer.append($('<br>'))
+mainContainer.append($('<br>'))
+mainContainer.append(actionBtn)
 
 /**
  * Utility function for changing button state
@@ -96,11 +93,15 @@ mainContainer.appendChild(actionBtn)
  */
 const setButtonStatus = status => {
     if (status) {
-        actionBtn.style.pointerEvents = 'auto'
-        actionBtn.style.opacity = 1
-    }else {
-        actionBtn.style.pointerEvents = 'none'
-        actionBtn.style.opacity = 0.5
+        actionBtn.css({
+            pointerEvents: 'auto',
+            opacity: 1
+        })
+    } else {
+        actionBtn.css({
+            pointerEvents: 'none',
+            opacity: 0.5
+        })
     }
 }
 setButtonStatus(false)
@@ -112,59 +113,62 @@ setButtonStatus(false)
  */
 const validate = email => {
     if (isValidateEmail(email)) {
-        inputContainer.classList.remove('invalid')
+        inputContainer.removeClass('invalid')
         if (getDomain(email).toLowerCase() === 'consultadd.com') {
-            label.innerText = status.currect
-            inputContainer.classList.add('currect')
+            label.text(status.currect)
+            inputContainer.addClass('currect')
             setButtonStatus(true)
-        }else {
-            label.innerText = status.notRegister
-            inputContainer.classList.remove('currect')
+        } else {
+            label.text(status.notRegister)
+            inputContainer.removeClass('currect')
             setButtonStatus(false)
         }
-    }else if (email.length > 0) {
-        inputContainer.classList.add('invalid')
-        label.innerText = status.error
+    } else if (email.length > 0) {
+        inputContainer.addClass('invalid')
+        label.text(status.error)
         setButtonStatus(false)
-    }else {
-        inputContainer.classList.remove('currect')
-        inputContainer.classList.remove('invalid')
-        label.innerText = ''
+    } else {
+        inputContainer.removeClass('currect')
+        inputContainer.removeClass('invalid')
+        label.text('')
         setButtonStatus(false)
     }
 }
 
 // Html Events Callbacks
-inputElement.onmouseover = e => {
-    inputContainer.classList.add('hover')
-}
+inputElement.hover(e => {
+    inputContainer.addClass('hover')
+})
 
-inputElement.onmouseleave = e => {
-    inputContainer.classList.remove('hover')
-}
+inputElement.mouseout(e => {
+    inputContainer.removeClass('hover')
+})
 
-inputElement.oninput = e => {
+inputElement.on('input', e => {
     validate(e.target.value)
-}
+})
 
-inputElement.onfocus = e => {
+inputElement.focusin(e => {
     console.log('Input field is on focus')
-}
+})
 
-inputElement.onblur = e => {
+inputElement.focusout(e => {
     console.log('Input field is not on focus')
-}
+})
 
-actionBtn.onclick = async () => {
+actionBtn.click(async () => {
     console.log('Button was clicked')
     try {
-        const response = await fetch('https://demo7857661.mockable.io/testdata')
-        const result = await response.json()
-        localStorage.setItem('name', result.firstName)
-        sessionStorage.setItem('age', result.age.toString())
-        window.location = 'home.html'
-    }catch(err) {
+        $.ajax({
+            url: 'https://demo7857661.mockable.io/testdata',
+            success: (result) => {
+                localStorage.setItem('name', result.firstName)
+                sessionStorage.setItem('age', result.age.toString())
+                window.location = 'home.html'
+            }
+        })
+    } catch (err) {
         console.log(err.message)
     }
-}
+})
 
